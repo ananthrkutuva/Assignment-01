@@ -20,12 +20,12 @@ function advanced_solver_test_template()
     %set solver parameters (Bisection)
 
     % %Newton's method example test
-    x0_guess = 0.7;
-    plot(x0_guess,test_func01(x0_guess),'bo','markerfacecolor','b','markersize',5);
-
-    [x_sol, exit_flag] = newton_solver(@test_func01,x0_guess,dxtol,ftol,max_iter,dxmax);
-    num2str(x_sol, 20)
-    plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
+    % x0_guess = 0.7;
+    % plot(x0_guess,test_func01(x0_guess),'bo','markerfacecolor','b','markersize',5);
+    % 
+    % [x_sol, exit_flag] = newton_solver(@test_func01,x0_guess,dxtol,ftol,max_iter,dxmax);
+    % num2str(x_sol, 20)
+    % plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
     
 
     % %Secant method example test
@@ -40,13 +40,13 @@ function advanced_solver_test_template()
 
     
     % Bisection method example test
-    % x_left = -5;
-    % x_right = 2;
-    % plot(x_left,test_func01(x_left),'bo','markerfacecolor','b','markersize',5);
-    % plot(x_right,test_func01(x_right),'ko','markerfacecolor','k','markersize',5);
-    % 
-    % x_sol = bisection_solver(@test_func01,x_left,x_right,dxtol,ftol,max_iter);
-    % plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
+    x_left = -5;
+    x_right = 2;
+    plot(x_left,test_func01(x_left),'bo','markerfacecolor','b','markersize',5);
+    plot(x_right,test_func01(x_right),'ko','markerfacecolor','k','markersize',5);
+
+    x_sol = bisection_solver(@test_func01,x_left,x_right,dxtol,ftol,max_iter);
+    plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
 end
 
 

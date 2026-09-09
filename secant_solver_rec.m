@@ -1,4 +1,4 @@
-%Root finding function via secant method
+%Root finding function via secant method FOR RECORDING ALL OUTPUTS
 %INPUTS:
 % fun: the function we are computing the root of
 % x0: first guess for secant method
@@ -47,7 +47,7 @@ function [x_final, exit_flag, x_list] = secant_solver_rec(fun, x0, x1, dxtol, ft
         x_list = [x0, x1, x];
         return
     % for if interval gets really small and doesn't converge on correct
-    % thing
+    % value
     elseif (abs(x - x1) <= dxtol)
         exit_flag = 0;
         x_final = x;
