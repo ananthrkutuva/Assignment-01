@@ -12,12 +12,13 @@
 % x: estimate for root of fun
 % exit_flag: an integer indicating whether or not the solver succeeded
 % x_list: a list of that iterations [x0 x1 xn]
-function [x_final, exit_flag, x_list] = secant_solver_rec(fun, x0, x1, dxtol, ftol, max_iter, dxmax)
-    max_iter = max_iter - 1;
-    
+function [x_final, exit_flag, x_list] = secant_solver_rec(fun, x0, x1, dxtol, ftol, max_iter, dxmax)    
     % evaluate left and right guesses initially
     y0 = fun(x0);
     y1 = fun(x1);
+    
+    % decrement max iteration
+    max_iter = max_iter - 1;
     
     % divide by zero protection
     if (y1 - y0) == 0
