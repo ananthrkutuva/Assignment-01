@@ -1,0 +1,1 @@
+## Ananth Kutuva, Anthony Cheung, and Eliam Batista - MechE Math Assignment 01
