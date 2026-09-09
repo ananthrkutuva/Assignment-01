@@ -20,6 +20,7 @@ function [x_final, exit_flag, x_list] = bisection_solver_rec(fun, x_left, x_righ
     % if there is no zero crossing between the left and right, end fail
     if fun(x_left) * fun(x_right) > 0
         exit_flag = 0;
+        % records the final x midpoint even if it wasn't the root
         x_final = x;
         x_list = x_discarded;
         return
@@ -30,6 +31,9 @@ function [x_final, exit_flag, x_list] = bisection_solver_rec(fun, x_left, x_righ
     if (abs(fun(x_left)) <= ftol)
         exit_flag = 1;
         x_final = x_left;
+        % the number that was most recently discarded gets recorded into 
+        % the x_list to be brought up the recursion stack and combined into
+        % the full list
         x_list = x_discarded;
         return;
     elseif (abs(fun(x_right)) <= ftol)
