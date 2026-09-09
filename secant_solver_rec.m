@@ -1,0 +1,56 @@
+function [x_final, exit_flag, x_list] = secant_solver_rec(fun, x0, x1, dxtol, ftol, max_iter, dxmax)
+    max_iter = max_iter - 1;
+    
+    % evaluate left and right guesses initially
+    y0 = fun(x0);
+    y1 = fun(x1);
+    
+    % divide by zero protection
+    if (y1 - y0) == 0
+        x_final = x1;
+        exit_flag = 0;
+        x_list = [x0, x1];
+        return;
+    end
+    
+    % calculate the next iteration
+    x = x1 - (y1 * ((x1 - x0) / (y1 - y0)));  
+    fx = fun(x);
+  
+    % terminate if the solver succeeds or fails
+
+    % if y value of next x is close to 0, success
+    if (abs(fx) <= ftol)
+        exit_flag = 1;
+        x_final = x;
+        % records this last iteration's x0 x1 and x
+        x_list = [x0, x1, x];
+        return
+    % for divide by zero
+    elseif (abs(x - x1) > dxmax)
+        exit_flag = 0;
+        x_final = x;
+        x_list = [x0, x1, x];
+        return
+    % for if interval gets really small and doesn't converge on correct
+    % thing
+    elseif (abs(x - x1) <= dxtol)
+        exit_flag = 0;
+        x_final = x;
+        x_list = [x0, x1, x];
+        return
+    % for if the iterations runs out
+    elseif (max_iter == 0)
+        exit_flag = 0;
+        x_final = x;
+        x_list = [x0, x1, x];
+        return
+    else
+        % this recursive call receives the last ever iterations x0 x1 and x
+        % and adds back on the previous call's x0 to the front of the last 
+        % ever iteration as it goes up the stack, eventually ending up with
+        % the entire trial's [x0, x1, xn] values leading to a success
+        [x_final, exit_flag, next_x_list] = secant_solver_rec(fun, x1, x, dxtol, ftol, max_iter, dxmax);
+        x_list = [x0, next_x_list];
+    end
+end

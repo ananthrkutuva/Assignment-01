@@ -28,13 +28,13 @@ function basic_solver_with_tests_template()
 
     
     %Bisection method example test
-    % x_left = -5;
-    % x_right = 2;
-    % plot(x_left,test_func01(x_left),'bo','markerfacecolor','b','markersize',5);
-    % plot(x_right,test_func01(x_right),'ko','markerfacecolor','k','markersize',5);
-    % 
-    % x_sol = bisection_solver(@test_func01,x_left,x_right);
-    % plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
+    x_left = -5;
+    x_right = 2;
+    plot(x_left,test_func01(x_left),'bo','markerfacecolor','b','markersize',5);
+    plot(x_right,test_func01(x_right),'ko','markerfacecolor','k','markersize',5);
+
+    x_sol = bisection_solver(@test_func01,x_left,x_right);
+    plot(x_sol,test_func01(x_sol),'go','markerfacecolor','g','markersize',5);
 end
 
 
