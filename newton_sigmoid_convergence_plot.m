@@ -1,4 +1,4 @@
-function recording_newton_method()
+function newton_sigmoid_convergence_plot()
     close all;
     %Initial guess near the root we are analyzing convergence behavior
     %(you will need to change this depending on the test function and root)
