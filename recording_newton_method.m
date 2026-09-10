@@ -101,4 +101,13 @@ function recording_newton_method()
     xlabel("\epsilon_{n} (-)")
     ylabel("\epsilon_{n+1} (-)")
     legend("Newton's Method Raw Error", "Filtered Convergence Fit Line", location="southeast")
+    
+    clf
+    %example for how to plot fit line
+    %generate x data on a logarithmic range
+    fit_line_x = 10.^[-16:.01:1];
+    %compute the corresponding y values
+    fit_line_y = k*fit_line_x.^p;
+    %plot on a loglog plot.
+    loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
 end
