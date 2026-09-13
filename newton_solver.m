@@ -53,6 +53,7 @@ function [x, exit_flag] = newton_solver(fun,x0,dxtol,ftol,max_iter,dxmax)
         % if no flags have popped up, send the new x guess into the solver
         % with x as the new inital guess
         [x, exit_flag] = newton_solver(fun, x, dxtol, ftol, max_iter, dxmax);
+        % disp(max_iter)
     end
 
 end
