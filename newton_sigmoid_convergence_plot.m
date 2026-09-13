@@ -72,44 +72,6 @@ function newton_sigmoid_convergence_plot()
         % fun_outputs = [fun_outputs, x_next_list(end)];
     end
     
-    %At this point, x_current_list corresponds to many many
-    %measurements of x_{n} across many trials
-    %and x_next_list corresponds to many many measurements of
-    %the corresponding value of x_{n+1} across many trials
-    %this is the data the you want to clean and analyze
-      
-    % current and next error lists
-    e_n = abs(x_current_list - target_root);
-    e_n1 = abs(x_next_list - target_root);
-    
-    % trim boundaries
-    xmin = 2.06399e-6;
-    xmax = 0.0189298;
-    
-    % mask to remove all values outside boundary
-    mask = (e_n >= xmin) & (e_n <= xmax);
-    
-    % new trimmed error values
-    e_n_new = e_n(mask);
-    e_n1_new = e_n1(mask);
-    
-    % plotting the error values
-    loglog(e_n, e_n1,'ro','markerfacecolor','r','markersize',5);
-    hold on;
-    
-    % generating and plotting the fit line
-    [p, k] = generate_error_fit(e_n_new, e_n1_new);
-    fit_line_x = 10.^(-6:.01:-1);
-    fit_line_y = k * fit_line_x .^ p;
-    loglog(fit_line_x,fit_line_y,'k-','linewidth', 3)
-    hold off;
-    ax = gca;
-    ax.FontSize = 30; % Changes tick labels and scales labels
-    title("Newton's Method Convergence Rate Plot")
-    xlabel("\epsilon_{n} (-)")
-    ylabel("\epsilon_{n+1} (-)")
-    legend("Newton's Method Raw Error", "Filtered Convergence Fit Line", location="southeast")
-    
     % plotting the new sigmoid test function
     figure; hold on;
     ax = gca;
