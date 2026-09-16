@@ -46,7 +46,7 @@ function recording_bisection_method()
     e_n1 = abs(x_next_list - target_root);
     
     % filtering boundaries (don't use x vals outside outside of this range)
-    xmin = 3e-14;
+    xmin = 1e-11;
     xmax = 0.05;
 
     % mask to remove all values outside boundary
@@ -58,11 +58,11 @@ function recording_bisection_method()
     
     % plotting the full bisection method plot
     figure;
-    loglog(e_n, e_n1, 'r.', 'MarkerSize', 10, 'DisplayName', 'Bisection Method Raw Error');
+    loglog(e_n, e_n1, 'r.', 'MarkerSize', 20, 'DisplayName', 'Bisection Method Raw Error');
     hold on;
 
     % plotting the filtered values on top of the original plot
-    loglog(e_n_new, e_n1_new, 'b.', 'MarkerSize', 10, 'DisplayName', 'Bisection Method Filtered Error');
+    loglog(e_n_new, e_n1_new, 'b.', 'MarkerSize', 20, 'DisplayName', 'Bisection Method Filtered Error');
     
     % plotting the fit line on top of both plots
     [p, k] = generate_error_fit(e_n_new, e_n1_new);
