@@ -45,8 +45,8 @@ function recording_bisection_method()
     e_n = abs(x_current_list - target_root);
     e_n1 = abs(x_next_list - target_root);
     
-    % trim boundaries
-    xmin = 1.5e-14;
+    % filtering boundaries (don't use x vals outside outside of this range)
+    xmin = 3e-14;
     xmax = 0.05;
 
     % mask to remove all values outside boundary
@@ -56,33 +56,42 @@ function recording_bisection_method()
     e_n_new = e_n(mask);
     e_n1_new = e_n1(mask);
     
-    % plotting the full secant method plot
+    % plotting the full bisection method plot
     figure;
     loglog(e_n, e_n1, 'r.', 'MarkerSize', 10, 'DisplayName', 'Bisection Method Raw Error');
     hold on;
+
+    % plotting the filtered values on top of the original plot
+    loglog(e_n_new, e_n1_new, 'b.', 'MarkerSize', 10, 'DisplayName', 'Bisection Method Filtered Error');
     
-    % plotting the fit line on top of the plot
+    % plotting the fit line on top of both plots
     [p, k] = generate_error_fit(e_n_new, e_n1_new);
-    fit_line_x = 10.^(-10:.01:-1);
+    fit_line_x = 10.^(-15:.01:2);
     fit_line_y = k * fit_line_x .^ p;
     loglog(fit_line_x,fit_line_y,'k-','linewidth', 3, 'DisplayName', 'Filtered Convergence Fit Line')
     hold off;
     ax = gca;
     ax.FontSize = 30;
-    title("Bisection Method Convergence Rate Plot")
-    xlabel("\epsilon_{n} (-)")
-    ylabel("\epsilon_{n+1} (-)")
-    legend(location="southeast")
-    
-    clf
-    %example for how to plot fit line
-    %generate x data on a logarithmic range
-    fit_line_x = 10.^[-16:.01:1];
-    %compute the corresponding y values
-    fit_line_y = k*fit_line_x.^p;
-    disp(p)
-    disp(k)
-    %plot on a loglog plot.
-    loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
-end
+    title('Bisection Method Convergence Rate Plot','Interpreter','Latex');
+    xlabel("Error at Current Iteration $\epsilon_{n}$ (-)", "Interpreter", "latex")
+    ylabel("Error at Next Iteration $\epsilon_{n+1}$ (-)", "Interpreter", "latex")
+    legend("Location", "northwest", "Interpreter", "latex")
+    xticks(10.^(-15:5:0))
+    yticks(10.^(-15:5:0))
+    axis padded;
 
+    % high res export
+    myfig = gcf(); %set myfig to the current figure
+    exportgraphics(myfig , 'BISECTION_METHOD_CONVERGENCE_NEW.png', 'Resolution', 600); %saves plot to plot_name at high resolution
+
+    % clf
+    % %example for how to plot fit line
+    % %generate x data on a logarithmic range
+    % fit_line_x = 10.^[-16:.01:1];
+    % %compute the corresponding y values
+    % fit_line_y = k*fit_line_x.^p;
+    % disp(p)
+    % disp(k)
+    % %plot on a loglog plot.
+    % loglog(fit_line_x,fit_line_y,'k-','linewidth',2)
+end
