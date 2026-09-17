@@ -79,17 +79,16 @@ function newton_sigmoid_convergence_plot()
     xvals = linspace(-50, 50, 201);
     [yvals,~] = test_function03(xvals);
     plot(xvals, yvals,'k','linewidth', 4, "DisplayName", "Sigmoid Function");
-    xlabel('Function Input: x'); ylabel('Function Output: f(x)'); title("Newton's Method Guess Convergence Plot");
+    xlabel('Initial Guess: $x_{0}$ (-)', "Interpreter", "latex");
+    ylabel('Function Output: $f(x)$ (-)', "Interpreter", "latex"); 
+    title("Initial Guess Convergence for Newton's Method (Sigmoid Function)", "Interpreter", "latex");
     xlim([0 50])
-    ylim([-8 8])
-    legend(location="southeast");
+    ylim([-4 6])
+    legend("Location", "northwest", "Interpreter", "latex");
     
     % plotting the horizontal line for y = 0
     plot(xvals, 0*xvals,'k--','linewidth',1, "DisplayName", "Y = 0 Line");
 
-    % plotting the actual root calculated by fzero
-    scatter(target_root, test_function03(target_root), 300, "blue", "filled", DisplayName="Calculated Root Location")
-    
     % for every iteration in the run, if the exit flag of that iteration is
     % a 1, plot the initial guess in cyan, if its 0, then plot the initial
     % guess in red
@@ -104,4 +103,11 @@ function newton_sigmoid_convergence_plot()
     % makes only two legend entries for the successes and failures
     scatter(NaN, NaN, 75, "cyan", "filled", "DisplayName", "Successful Solver Run");
     scatter(NaN, NaN, 75, "red", "filled", "DisplayName", "Failed Solver Run");
+
+    % plotting the actual root calculated by fzero
+    scatter(target_root, test_function03(target_root), 300, "blue", "filled", DisplayName="Calculated Root Location")
+
+    % high res export
+    myfig = gcf(); %set myfig to the current figure
+    exportgraphics(myfig , 'NEWTON_SIGMOID_CONVERGENCE_DIAGRAM.png', 'Resolution', 600); %saves plot to plot_name at high resolution
 end

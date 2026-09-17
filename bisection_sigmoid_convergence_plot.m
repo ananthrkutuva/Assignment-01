@@ -43,7 +43,6 @@ function bisection_sigmoid_convergence_plot()
             x_current_list = [x_current_list, x_list(1:end-1)];
             x_next_list = [x_next_list, x_list(2:end)];
             index_list = [index_list, 1:length(x_list)-1];
-
             exit_flag_list(n, m) = exit_flag;
         end
     end
@@ -61,7 +60,7 @@ function bisection_sigmoid_convergence_plot()
     ax.FontSize = 20;
 
     % labels
-    title("Bisection Method Guess Convergence Diagram", "Interpreter", "latex");
+    title("Initial Guess Convergence for Bisection Method (Sigmoid Function)", "Interpreter", "latex");
     xlabel("$x_{left}$ Guess Value (-)", "Interpreter", "latex")
     ylabel("$x_{right}$ Guess Value (-)", "Interpreter", "latex")
     xlim([0 50])

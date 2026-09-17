@@ -66,9 +66,9 @@ function secant_sigmoid_convergence_plot()
     ax.FontSize = 30;
 
     % labels
-    title("Secant Method Guess Convergence Diagram", "Interpreter", "latex");
-    xlabel("x0 Guess Value (-)", "Interpreter", "latex")
-    ylabel("x1 Guess Value (-)", "Interpreter", "latex")
+    title("Initial Guess Convergence for Secant Method (Sigmoid Function)", "Interpreter", "latex");
+    xlabel("$x_{0}$ Guess Value (-)", "Interpreter", "latex")
+    ylabel("$x_{1}$ Guess Value (-)", "Interpreter", "latex")
     xlim([0 50])
     ylim([0 50])
     legend;
