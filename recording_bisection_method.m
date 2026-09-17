@@ -58,7 +58,7 @@ function recording_bisection_method()
     
     % plotting the full bisection method plot
     figure;
-    loglog(e_n, e_n1, 'r.', 'MarkerSize', 20, 'DisplayName', 'Bisection Method Raw Error');
+    loglog(e_n, e_n1, 'r.', 'MarkerSize', 10, 'DisplayName', 'Bisection Method Raw Error');
     hold on;
 
     % plotting the filtered values on top of the original plot
@@ -71,7 +71,7 @@ function recording_bisection_method()
     loglog(fit_line_x,fit_line_y,'k-','linewidth', 3, 'DisplayName', 'Filtered Convergence Fit Line')
     hold off;
     ax = gca;
-    ax.FontSize = 30;
+    ax.FontSize = 25;
     title('Bisection Method Convergence Rate Plot','Interpreter','Latex');
     xlabel("Error at Current Iteration $\epsilon_{n}$ (-)", "Interpreter", "latex")
     ylabel("Error at Next Iteration $\epsilon_{n+1}$ (-)", "Interpreter", "latex")

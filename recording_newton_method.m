@@ -86,7 +86,7 @@ function recording_newton_method()
     e_n1_new = e_n1(mask);
     
     % plotting the error values
-    loglog(e_n, e_n1, 'r.', 'markersize', 20, "DisplayName","Newton's Method Raw Error");
+    loglog(e_n, e_n1, 'r.', 'markersize', 10, "DisplayName","Newton's Method Raw Error");
     hold on;
 
     % plotting the filtered values on top of the original plot
@@ -99,14 +99,15 @@ function recording_newton_method()
     loglog(fit_line_x,fit_line_y,'k-','linewidth', 3, "DisplayName", "Filtered Convergence Fit Line")
     hold off;
     ax = gca;
-    ax.FontSize = 30; % Changes tick labels and scales labels
+    ax.FontSize = 25; % Changes tick labels and scales labels
     title("Newton's Method Convergence Rate Plot", "Interpreter", "latex")
     xlabel("Error at Current Iteration $\epsilon_{n}$ (-)", "Interpreter", "latex")
     ylabel("Error at Next Iteration $\epsilon_{n+1}$ (-)", "Interpreter", "latex")
     legend("Location", "northwest", "Interpreter", "latex")
     xticks(10.^(-15:5:5))
     yticks(10.^(-15:5:5))
-    ylim([0.1e-17 10000])
+    ylim([0.1e-17 1e4])
+    xlim([1e-15 1e5])
 
     % high res export
     myfig = gcf(); %set myfig to the current figure
