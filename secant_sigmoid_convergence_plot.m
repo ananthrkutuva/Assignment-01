@@ -66,22 +66,22 @@ function secant_sigmoid_convergence_plot()
     ax.FontSize = 30;
 
     % labels
-    title("Secant Method Guess Convergence Diagram");
-    xlabel("x0 Guess Value")
-    ylabel("x1 Guess Value")
+    title("Secant Method Guess Convergence Diagram", "Interpreter", "latex");
+    xlabel("x0 Guess Value (-)", "Interpreter", "latex")
+    ylabel("x1 Guess Value (-)", "Interpreter", "latex")
     xlim([0 50])
     ylim([0 50])
     legend;
     
     % plotting the actual root and its horizontal and vertical lines
     scatter(target_root, target_root, 300, "green", "filled", DisplayName="Calculated Root Location")
-    plot([0 50], [target_root target_root], "y--", "LineWidth", 1, DisplayName="Root Location X")
-    plot([target_root target_root], [0 50], "y--", "LineWidth", 1, DisplayName="Root Location Y")
+    plot([0 50], [target_root target_root], "y--", "LineWidth", 2, DisplayName="Root Location X")
+    plot([target_root target_root], [0 50], "y--", "LineWidth", 2, DisplayName="Root Location Y")
 
     % adding legend entries
     scatter(nan, nan, 100, "blue", "filled", DisplayName="Success - Converged");
     scatter(nan, nan, 100, "red", "filled", DisplayName="Failed to Converge");
-    legend(location="northeast");
+    legend("Location", "northeast", "Interpreter", "latex");
 
     % coloring everything 
     customMap = [1 0 0; 0 0 1];
@@ -89,4 +89,9 @@ function secant_sigmoid_convergence_plot()
     cb = colorbar;
     cb.Ticks = [0, 1];
     cb.TickLabels = {'Failed', 'Converged'};
+    cb.TickLabelInterpreter = 'latex';
+
+    % high res export
+    myfig = gcf(); %set myfig to the current figure
+    exportgraphics(myfig , 'SECANT_SIGMOID_CONVERGENCE_DIAGRAM.png', 'Resolution', 600); %saves plot to plot_name at high resolution
 end

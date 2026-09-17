@@ -61,22 +61,22 @@ function bisection_sigmoid_convergence_plot()
     ax.FontSize = 20;
 
     % labels
-    title("Bisection Method Guess Convergence Diagram");
-    xlabel("x_{left} Guess Value")
-    ylabel("x_{right} Guess Value")
+    title("Bisection Method Guess Convergence Diagram", "Interpreter", "latex");
+    xlabel("$x_{left}$ Guess Value (-)", "Interpreter", "latex")
+    ylabel("$x_{right}$ Guess Value (-)", "Interpreter", "latex")
     xlim([0 50])
     ylim([0 50])
-    legend;
+    legend("Interpreter", "latex");
     
     % plotting the actual root and its horizontal and vertical lines
     scatter(target_root, target_root, 300, "green", "filled", DisplayName="Calculated Root Location")
-    plot([0 50], [target_root target_root], "y--", "LineWidth", 1, DisplayName="Root Location X")
-    plot([target_root target_root], [0 50], "y--", "LineWidth", 1, DisplayName="Root Location Y")
+    plot([0 50], [target_root target_root], "y--", "LineWidth", 2, DisplayName="Root Location X")
+    plot([target_root target_root], [0 50], "y--", "LineWidth", 2, DisplayName="Root Location Y")
 
     % adding legend entries
     scatter(nan, nan, 100, "blue", "filled", DisplayName="Success - Converged");
     scatter(nan, nan, 100, "red", "filled", DisplayName="Failed to Converge");
-    legend(location="northeast");
+    legend("Location","northwest", "Interpreter","latex");
 
     % coloring everything 
     customMap = [1 0 0; 0 0 1];
@@ -84,40 +84,12 @@ function bisection_sigmoid_convergence_plot()
     cb = colorbar;
     cb.Ticks = [0, 1];
     cb.TickLabels = {'Failed', 'Converged'};
+    cb.TickLabelInterpreter = 'latex';
+
+    % high res export
+    myfig = gcf(); %set myfig to the current figure
+    exportgraphics(myfig , 'BISECTION_SIGMOID_CONVERGENCE_DIAGRAM.png', 'Resolution', 600); %saves plot to plot_name at high resolution
     
-    % % calculating current and next error
-    % e_n = abs(x_current_list - target_root);
-    % e_n1 = abs(x_next_list - target_root);
-    % 
-    % % trim boundaries
-    % xmin = 1.5e-14;
-    % xmax = 0.05;
-    % 
-    % % mask to remove all values outside boundary
-    % mask = (e_n >= xmin) & (e_n <= xmax);
-    % 
-    % % new trimmed error values to use for fit line
-    % e_n_new = e_n(mask);
-    % e_n1_new = e_n1(mask);
-    % 
-    % % plotting the full secant method plot
-    % figure;
-    % loglog(e_n, e_n1, 'r.', 'MarkerSize', 10, 'DisplayName', 'Bisection Method Raw Error');
-    % hold on;
-    % 
-    % % plotting the fit line on top of the plot
-    % [p, k] = generate_error_fit(e_n_new, e_n1_new);
-    % fit_line_x = 10.^(-10:.01:-1);
-    % fit_line_y = k * fit_line_x .^ p;
-    % loglog(fit_line_x,fit_line_y,'k-','linewidth', 3, 'DisplayName', 'Filtered Convergence Fit Line')
-    % hold off;
-    % ax = gca;
-    % ax.FontSize = 30;
-    % title("Bisection Method Convergence Rate Plot")
-    % xlabel("\epsilon_{n} (-)")
-    % ylabel("\epsilon_{n+1} (-)")
-    % legend(location="southeast")
-    % 
     % clf
     % %example for how to plot fit line
     % %generate x data on a logarithmic range
