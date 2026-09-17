@@ -68,9 +68,9 @@ function bisection_sigmoid_convergence_plot()
     legend("Interpreter", "latex");
     
     % plotting the actual root and its horizontal and vertical lines
-    scatter(target_root, target_root, 300, "green", "filled", DisplayName="Calculated Root Location")
     plot([0 50], [target_root target_root], "y--", "LineWidth", 2, DisplayName="Root Location X")
     plot([target_root target_root], [0 50], "y--", "LineWidth", 2, DisplayName="Root Location Y")
+    scatter(target_root, target_root, 300, "green", "filled", DisplayName="Calculated Root Location")
 
     % adding legend entries
     scatter(nan, nan, 100, "blue", "filled", DisplayName="Success - Converged");
