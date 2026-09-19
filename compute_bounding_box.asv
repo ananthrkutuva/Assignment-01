@@ -46,13 +46,9 @@ function [x_range,y_range] = compute_bounding_box(x0,y0,theta,egg_params)
         % Finding Roots for Y (Top and bottom bounds)
         s_root_y =  secant_solver(egg_wrapper_G2, s0, s1, dxtol, ftol, max_iter, dxmax);
 
-        % Finding Location (X, Y for left right bounds)
         [V_x, ~] = egg_func(s_root_x,x0,y0,theta,egg_params);
-        x_coords(end+1) = V_x(1);
+        [V_x, ~] = egg_func(s_root_x,x0,y0,theta,egg_params);
 
-        % Finding Location (X, Y for top bottom bounds)
-        [V_y, ~] = egg_func(s_root_y,x0,y0,theta,egg_params);
-        y_coords(end+1) = V_y(2);
     end
 
     %plug s_root back into egg_func to find boundary point
@@ -66,8 +62,10 @@ function [x_range,y_range] = compute_bounding_box(x0,y0,theta,egg_params)
     %the sort function will be useful here
 
     %extract the bounding box from the extrema
-    x_range = [min(x_coords), max(x_coords)];
-    y_range = [min(y_coords) max(y_coords)];
+    x_range = []; %you'll need to change this
+    y_range = []; %you'll need to change this
+
+    
 end
 
 %you may need to make additional wrapper functions
@@ -81,14 +79,12 @@ end
 function dxds = egg_wrapper_dxds(s,x0,y0,theta,egg_params)
     [~, G] = egg_func(s,x0,y0,theta,egg_params);
     
-    % calculates the dxds for a given input s
-    dxds = G(1);
+    dxds = G(1); %change this to be the correct thing!
 end
 
 % Wrapper for Finding Top and Bottom Local Extrema
 function dyds = egg_wrapper_dyds(s,x0,y0,theta,egg_params)
     [~, G] = egg_func(s,x0,y0,theta,egg_params);
     
-    % calculates the dyds for a given input s
-    dyds = G(2);
+    dyds = G(2); %change this to be the correct thing!
 end
