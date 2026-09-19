@@ -15,26 +15,34 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
     axis([y_ground*2, x_wall*2, y_ground*2, x_wall*2]);
 
     % initial plot for egg and bounding box
-    egg_plot = plot(0, 0, 'k', LineWidth=2);
-    % box_plot = plot(0, 0, 'k');
+    egg_plot = plot(0, 0, 'k', 'LineWidth', 2, 'HandleVisibility', 'off');
 
-    % axis equal;
-    % axis square;
-    
     % number of frames to simulate egg moving based on time to hit ground
     % or wall
-    time_span = linspace(0, t_hit, 60);
-    
+    time_span = linspace(0, t_hit, 50);
+
+    % plots the starting location of the egg
+    [x0, y0, ~] = egg_trajectory01(0);
+    plot(x0, y0, 'x', 'MarkerSize', 20, 'MarkerFaceColor', 'blue', ...
+        'MarkerEdgeColor', 'blue', ...
+        'DisplayName', 'Starting Location of Egg');
+
+    % draws the wall and ground
+    plot([x_wall x_wall], [y_ground, abs(x_wall)*2], 'Color', '#A52A2A', 'LineWidth', 3, 'DisplayName', 'Wall')
+    plot([y_ground*2 x_wall], [y_ground, y_ground], 'k', 'LineWidth', 3, 'DisplayName', 'Ground')
+
+    lgd = legend('Location', 'northwest', 'Interpreter', 'latex');
+    lgd.AutoUpdate = 'off';
+    ax = gca;
+    ax.FontSize = 30; % Changes tick labels and scales labels
+    title('Egg Animation', 'Interpreter', 'latex')
+    xlabel('X Location (-)', 'Interpreter', 'latex')
+    ylabel('Y Location (-)', 'Interpreter', 'latex')
+    grid on;
+
     % steps through every second of the simulation
     for i = 1:length(time_span)
         t = time_span(i);
-
-        % draws the wall and ground
-        plot([x_wall x_wall], [y_ground, abs(x_wall)*2], 'k', LineWidth=2)
-        plot([-30 x_wall], [y_ground, y_ground], 'k', LineWidth=2)
-
-        % xline(x_wall, LineWidth=2)
-        % yline(y_ground, LineWidth=2)
 
         % calculates the new x0 and y0 of the egg at that time step
         [x0, y0, theta] = egg_trajectory01(t);
@@ -56,6 +64,21 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
         current_frame = getframe(fig1);
 
         %write the frame to the video
+        writeVideo(writerObj,current_frame);
+    end
+
+    % plotting the final location of the egg
+    lgd.AutoUpdate = 'on';
+    [x0, y0, ~] = egg_trajectory01(t_hit);
+    plot(x0, y0, 'x', 'MarkerSize', 20, 'MarkerFaceColor', 'red', ...
+        'MarkerEdgeColor', 'red', ...
+        'DisplayName', 'Ending Location of Egg');
+    
+    %capture a frame (what is currently plotted)
+    current_frame = getframe(fig1);
+
+    %write the frame to the video
+    for i=1:20
         writeVideo(writerObj,current_frame);
     end
     %must call close after all frames are written
