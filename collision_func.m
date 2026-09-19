@@ -9,5 +9,5 @@
 %t_ground: time that the egg would hit the ground
 %t_wall: time that the egg would hit the wall
 function [t_ground,t_wall] = collision_func(traj_fun, egg_params, y_ground, x_wall)
-    %your code here
+    
 end
