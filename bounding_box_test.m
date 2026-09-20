@@ -22,8 +22,10 @@ function bounding_box_test()
     plot(V_list(1,:),V_list(2,:),'k');
     
     %compute the bounding box of the egg
-    [x_range,y_range] = compute_bounding_box(x0,y0,theta,egg_params);
+    [x_range,y_range] = compute_bounding_box(x0, y0, theta, egg_params);
+
     %plot the bounding box of the egg
     %your code here
+    %% 
     plot([min(x_range), min(x_range), max(x_range), max(x_range), min(x_range)], [min(y_range), max(y_range), max(y_range), min(y_range), min(y_range)], 'b')
 end

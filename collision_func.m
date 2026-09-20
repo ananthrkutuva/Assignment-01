@@ -1,6 +1,6 @@
 %Function that computes the collision time for a thrown egg
 %INPUTS:
-%traj_fun: a function that describes the [x,y,theta] trajectory of the egg 
+%egg_trajectory01: a function that describes the [x,y,theta] trajectory of the egg 
 %(takes time t as input)
 %egg_params: a struct describing the hyperparameters of the oval
 %y_ground: height of the ground
