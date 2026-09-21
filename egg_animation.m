@@ -6,6 +6,7 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
 
     %create a videowriter, which will write frames to the animation file
     writerObj = VideoWriter(input_fname);
+    writerObj.FrameRate = 60;
     open(writerObj); %must call open before writing any frames
 
     fig1 = figure(1);
@@ -14,12 +15,12 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
     % sets the axis for animation
     axis([y_ground*2, x_wall*2, y_ground*2, x_wall*2]);
 
-    % initial plot for egg and bounding box
+    % initializes the empty plot object for the egg
     egg_plot = plot(0, 0, 'k', 'LineWidth', 2, 'HandleVisibility', 'off');
 
-    % number of frames to simulate egg moving based on time to hit ground
-    % or wall
-    time_span = linspace(0, t_hit, 50);
+    % number of time frames to simulate egg moving based on 
+    num_frames = round(60 * t_hit);
+    time_span = linspace(0, t_hit, num_frames);
 
     % plots the starting location of the egg
     [x0, y0, ~] = egg_trajectory01(0);
@@ -40,7 +41,7 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
     ylabel('Y Location (-)', 'Interpreter', 'latex')
     grid on;
 
-    % steps through every second of the simulation
+    % steps through each of the 50 time frames of the simulation
     for i = 1:length(time_span)
         t = time_span(i);
 
@@ -57,9 +58,9 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
         % updates the egg plotter with these x and y coords
         set(egg_plot, 'xdata', V_vals(1, :), 'ydata', V_vals(2, :));
 
-        % redraws the screen with the new egg and new wall
+        % redraws the screen with the updated egg position
         drawnow;
-
+        
         %capture a frame (what is currently plotted)
         current_frame = getframe(fig1);
 
@@ -78,7 +79,7 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
     current_frame = getframe(fig1);
 
     %write the frame to the video
-    for i=1:20
+    for i=1:120
         writeVideo(writerObj,current_frame);
     end
     %must call close after all frames are written

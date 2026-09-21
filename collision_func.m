@@ -13,9 +13,9 @@ function [t_ground,t_wall] = collision_func(egg_trajectory01, egg_params, y_grou
     d_w = @(t) wall_dist(t, egg_trajectory01, egg_params, x_wall);
 
     x_guess0 = d_w(0);
-    x_guess1 = d_w(2);
+    x_guess1 = d_w(1);
     y_guess0 = d_g(0);
-    y_guess1 = d_g(2);
+    y_guess1 = d_g(1);
     
     dxtol = 1e-14;
     ftol = 1e-14;
