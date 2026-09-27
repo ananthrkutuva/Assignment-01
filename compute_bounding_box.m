@@ -10,7 +10,6 @@
 function [x_range,y_range] = compute_bounding_box(x0,y0,theta,egg_params)
 
     %wrapper function that calls egg_wrapper1
-
     % Single input (S) function to characterize G value
     egg_wrapper_G1 = @(s) egg_wrapper_dxds(s,x0,y0,theta,egg_params);
     egg_wrapper_G2 = @(s) egg_wrapper_dyds(s,x0,y0,theta,egg_params);
@@ -33,8 +32,8 @@ function [x_range,y_range] = compute_bounding_box(x0,y0,theta,egg_params)
     dxmax = 1e7;
     
     % Store X and Y cord of local extrema
-    x_coords = [];
-    y_coords = [];
+    x_coords = zeros(length(s_guesses)-1, 1);
+    y_coords = zeros(length(s_guesses)-1, 1);
 
     for i = 1:length(s_guesses)-1
         s0 = s_guesses(i);
@@ -48,22 +47,12 @@ function [x_range,y_range] = compute_bounding_box(x0,y0,theta,egg_params)
 
         % Finding Location (X, Y for left right bounds)
         [V_x, ~] = egg_func(s_root_x,x0,y0,theta,egg_params);
-        x_coords(end+1) = V_x(1);
+        x_coords(i) = V_x(1);
 
         % Finding Location (X, Y for top bottom bounds)
         [V_y, ~] = egg_func(s_root_y,x0,y0,theta,egg_params);
-        y_coords(end+1) = V_y(2);
+        y_coords(i) = V_y(2);
     end
-
-    %plug s_root back into egg_func to find boundary point
-    %[V_extrema,~] = egg_func(...
-
-
-    %once you have computed a bunch of extrema points
-
-    %You'll probably need additional code to determine if V_extrema
-    %corrsponds to the top coord, bottom coord, left coord, or right coord
-    %the sort function will be useful here
 
     %extract the bounding box from the extrema
     x_range = [min(x_coords), max(x_coords)];
