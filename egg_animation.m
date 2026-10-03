@@ -13,7 +13,12 @@ function egg_animation(x_wall, y_ground, t_hit, egg_params)
     hold on;
     
     % sets the axis for animation
+    axis equal;
     axis([y_ground*2, x_wall*2, y_ground*2, x_wall*2]);
+
+    y_tick_values = yticks; 
+    xticks(y_tick_values);
+    yticks(y_tick_values);
 
     % initializes the empty plot object for the egg
     egg_plot = plot(0, 0, 'k', 'LineWidth', 2, 'HandleVisibility', 'off');
